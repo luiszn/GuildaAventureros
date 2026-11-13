@@ -1,0 +1,42 @@
+﻿@model Mision
+@{
+    ViewData["Title"] = "Detalle de la misión";
+}
+<h2>@Model.Titulo</h2>
+<dl class="row">
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+    <dt class="col-sm-3">Dificultad</dt>
+    <dd class="col-sm-9">@Model.Dificultad</dd>
+    <dt class="col-sm-3">Recompensa</dt>
+    <dd class="col-sm-9">@Model.Recompensa.ToString("N2")</dd>
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+    <dt class="col-sm-3">Publicada</dt>
+    <dd class="col-sm-9">@Model.FechaPublicacion.ToString("dd/MM/yyyy HH:mm")</dd>
+</dl>
+
+<h5 class="mt-4">Asignaciones de esta misión</h5>
+@if (!Model.Asignaciones.Any())
+{
+    <p class="text-muted">Aún no hay aventureros asignados a esta misión.</p>
+}
+else
+{
+    <table class="table table-sm">
+        <thead><tr><th>#</th><th>Aventurero</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+            @foreach (var a in Model.Asignaciones.OrderByDescending(x => x.FechaAsignacion))
+            {
+                <tr>
+                    <td><a asp-controller="Asignaciones" asp-action="Details" asp-route-id="@a.IdAsignacion">@a.IdAsignacion</a></td>
+                    <td>@a.Aventurero?.Nombre</td>
+                    <td>@a.FechaAsignacion.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@a.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<a asp-action="Edit" asp-route-id="@Model.IdMision" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-link">Volver</a>

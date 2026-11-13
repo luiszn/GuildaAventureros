@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Asignacion>
+@{
+    ViewData["Title"] = "Asignaciones";
+    var filtro = ViewBag.EstadoFiltro as string;
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Asignaciones de misiones</h2>
+    <a class="btn btn-primary" asp-action="Create">+ Asignar misión</a>
+</div>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <select name="estado" class="form-select" onchange="this.form.submit()">
+            <option value="">Todos los estados</option>
+            @foreach (var e in new[] { "Activa", "Finalizada", "Cancelada" })
+            {
+                <option value="@e" selected="@(filtro == e)">@e</option>
+            }
+        </select>
+    </div>
+</form>
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Aventurero</th>
+            <th>Misión</th>
+            <th>Fecha de asignación</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            var css = a.Estado switch { "Activa" => "bg-primary", "Finalizada" => "bg-success", "Cancelada" => "bg-secondary", _ => "bg-light text-dark" };
+            <tr>
+                <td>@a.IdAsignacion</td>
+                <td>@a.Aventurero?.Nombre</td>
+                <td>@a.Mision?.Titulo</td>
+                <td>@a.FechaAsignacion.ToString("dd/MM/yyyy HH:mm")</td>
+                <td><span class="badge @css">@a.Estado</span></td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@a.IdAsignacion">Ver</a>
+                    @if (a.Estado == "Activa")
+                    {
+                        <form asp-action="Finalizar" asp-route-id="@a.IdAsignacion" method="post" class="d-inline"
+                              onsubmit="return confirm('¿Marcar la asignación como finalizada?');">
+                            <button type="submit" class="btn btn-sm btn-outline-success">Finalizar</button>
+                        </form>
+                        <form asp-action="Cancelar" asp-route-id="@a.IdAsignacion" method="post" class="d-inline"
+                              onsubmit="return confirm('¿Cancelar la asignación?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Cancelar</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">No hay asignaciones registradas.</td></tr>
+        }
+    </tbody>
+</table>

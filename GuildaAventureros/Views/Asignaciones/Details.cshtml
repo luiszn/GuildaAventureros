@@ -1,0 +1,30 @@
+﻿@model Asignacion
+@{
+    ViewData["Title"] = "Detalle de la asignación";
+}
+<h2>Asignación #@Model.IdAsignacion</h2>
+<dl class="row">
+    <dt class="col-sm-3">Aventurero</dt>
+    <dd class="col-sm-9">@Model.Aventurero?.Nombre (@Model.Aventurero?.Especialidad?.Nombre, nivel @Model.Aventurero?.Nivel)</dd>
+    <dt class="col-sm-3">Misión</dt>
+    <dd class="col-sm-9">@Model.Mision?.Titulo — @Model.Mision?.Dificultad</dd>
+    <dt class="col-sm-3">Recompensa</dt>
+    <dd class="col-sm-9">@Model.Mision?.Recompensa.ToString("N2")</dd>
+    <dt class="col-sm-3">Fecha de asignación</dt>
+    <dd class="col-sm-9">@Model.FechaAsignacion.ToString("dd/MM/yyyy HH:mm")</dd>
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+
+@if (Model.Estado == "Activa")
+{
+    <form asp-action="Finalizar" asp-route-id="@Model.IdAsignacion" method="post" class="d-inline"
+          onsubmit="return confirm('¿Marcar la asignación como finalizada?');">
+        <button type="submit" class="btn btn-success">Finalizar</button>
+    </form>
+    <form asp-action="Cancelar" asp-route-id="@Model.IdAsignacion" method="post" class="d-inline"
+          onsubmit="return confirm('¿Cancelar la asignación?');">
+        <button type="submit" class="btn btn-outline-danger">Cancelar</button>
+    </form>
+}
+<a asp-action="Index" class="btn btn-link">Volver</a>

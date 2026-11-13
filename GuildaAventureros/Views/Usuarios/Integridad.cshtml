@@ -1,0 +1,25 @@
+@model IntegridadViewModel
+@{
+    ViewData["Title"] = "Integridad de datos";
+}
+<h2>Verificación de integridad de datos</h2>
+@if (Model.TodoCorrecto)
+{
+    <div class="alert alert-success">Todas las verificaciones fueron superadas.</div>
+}
+else
+{
+    <div class="alert alert-danger">Hay verificaciones con problemas.</div>
+}
+<ul class="list-group">
+@foreach (var v in Model.Verificaciones)
+{
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+            <div class="fw-semibold">@v.Descripcion</div>
+            <div class="small text-muted">@v.Detalle</div>
+        </div>
+        @if (v.Correcto) { <span class="badge bg-success">OK</span> } else { <span class="badge bg-danger">Falla</span> }
+    </li>
+}
+</ul>

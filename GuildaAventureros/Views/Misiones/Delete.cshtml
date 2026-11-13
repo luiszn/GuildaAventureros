@@ -1,0 +1,25 @@
+﻿@model Mision
+@{
+    ViewData["Title"] = "Eliminar misión";
+}
+<h2>Eliminar misión</h2>
+<div class="alert alert-warning">¿Seguro que desea eliminar esta misión?</div>
+@if (Model.Asignaciones.Any())
+{
+    <div class="alert alert-danger">Esta misión tiene <strong>@Model.Asignaciones.Count</strong> asignación(es) registrada(s) y no podrá eliminarse.</div>
+}
+<dl class="row">
+    <dt class="col-sm-3">Título</dt>
+    <dd class="col-sm-9">@Model.Titulo</dd>
+    <dt class="col-sm-3">Dificultad</dt>
+    <dd class="col-sm-9">@Model.Dificultad</dd>
+    <dt class="col-sm-3">Recompensa</dt>
+    <dd class="col-sm-9">@Model.Recompensa.ToString("N2")</dd>
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdMision" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+<div class="p-4 mb-4 bg-light rounded-3 card-guilda">
+    <h1 class="display-6">⚔ La Guilda de Aventureros</h1>
+    <p class="lead mb-0">Encargo del Consejo de los Cinco Reinos: registrar aventureros, conocer sus especialidades y sentar la base de usuarios y roles del sistema de seguridad.</p>
+</div>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">🛡 Misión 1 · El Guardián</h5>
+                <p class="card-text">CRUD de Aventureros con especialidad (Guerrero, Mago, Arquero, Paladín) y validaciones.</p>
+                <a class="btn btn-primary" asp-controller="Aventureros" asp-action="Index">Ir a Aventureros</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">🔮 Misión 2 · La Hechicera</h5>
+                <p class="card-text">Roles, usuarios predeterminados con hash seguro y vínculo opcional con Aventurero.</p>
+                <a class="btn btn-primary" asp-controller="Usuarios" asp-action="Index">Ir a Usuarios</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">🗺 Misión 3 · El Explorador</h5>
+                <p class="card-text">Misiones con dificultad y recompensa, y asignaciones a aventureros con reglas de negocio.</p>
+                <a class="btn btn-primary" asp-controller="Misiones" asp-action="Index">Misiones</a>
+                <a class="btn btn-outline-primary" asp-controller="Asignaciones" asp-action="Index">Asignaciones</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">✔ Integración</h5>
+                <p class="card-text">Verificación de roles, usuarios, duplicados, hashes y relaciones.</p>
+                <a class="btn btn-outline-primary" asp-controller="Usuarios" asp-action="Integridad">Verificar integridad</a>
+            </div>
+        </div>
+    </div>
+</div>

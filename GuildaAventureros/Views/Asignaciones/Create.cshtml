@@ -1,0 +1,43 @@
+﻿@model Asignacion
+@{
+    ViewData["Title"] = "Asignar misión";
+    var sinAventureros = !((SelectList)ViewBag.Aventureros).Any();
+    var sinMisiones = !((SelectList)ViewBag.Misiones).Any();
+}
+<h2>Asignar misión a un aventurero</h2>
+
+@if (sinAventureros || sinMisiones)
+{
+    <div class="alert alert-warning">
+        Para registrar una asignación necesita al menos un aventurero y una misión registrados.
+        <a asp-controller="Aventureros" asp-action="Index">Aventureros</a> ·
+        <a asp-controller="Misiones" asp-action="Index">Misiones</a>
+    </div>
+}
+
+<div class="row"><div class="col-md-6">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="IdAventurero" class="form-label"></label>
+            <select asp-for="IdAventurero" asp-items="(SelectList)ViewBag.Aventureros" class="form-select">
+                <option value="0">-- Seleccione un aventurero --</option>
+            </select>
+            <span asp-validation-for="IdAventurero" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="IdMision" class="form-label"></label>
+            <select asp-for="IdMision" asp-items="(SelectList)ViewBag.Misiones" class="form-select">
+                <option value="0">-- Seleccione una misión --</option>
+            </select>
+            <span asp-validation-for="IdMision" class="text-danger"></span>
+            <div class="form-text">Solo las misiones <strong>Disponibles</strong> y los aventureros <strong>activos</strong> pueden asignarse.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" disabled="@(sinAventureros || sinMisiones)">Registrar asignación</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

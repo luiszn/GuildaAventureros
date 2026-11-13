@@ -1,0 +1,35 @@
+@model IEnumerable<Usuario>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Usuarios y roles</h2>
+    <a class="btn btn-outline-primary" asp-action="Integridad">Verificar integridad</a>
+</div>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Aventurero vinculado</th>
+            <th>Estado</th>
+            <th>PasswordHash</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.IdUsuario</td>
+            <td>@u.NombreUsuario</td>
+            <td>@u.Correo</td>
+            <td>@u.Rol?.Nombre</td>
+            <td>@(u.Aventurero?.Nombre ?? "—")</td>
+            <td>@if (u.Estado) { <span class="badge bg-success">Activo</span> } else { <span class="badge bg-secondary">Inactivo</span> }</td>
+            <td><code class="small">@(u.PasswordHash.Length > 28 ? u.PasswordHash[..28] + "…" : u.PasswordHash)</code></td>
+        </tr>
+    }
+    </tbody>
+</table>

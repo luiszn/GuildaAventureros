@@ -1,0 +1,29 @@
+@model Aventurero
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Nombre" class="form-label"></label>
+    <input asp-for="Nombre" class="form-control" maxlength="100" />
+    <span asp-validation-for="Nombre" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="IdEspecialidad" class="form-label"></label>
+    <select asp-for="IdEspecialidad" asp-items="(SelectList)ViewBag.Especialidades" class="form-select">
+        <option value="0">-- Seleccione una especialidad --</option>
+    </select>
+    <span asp-validation-for="IdEspecialidad" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Nivel" class="form-label"></label>
+    <input asp-for="Nivel" type="number" min="1" class="form-control" />
+    <span asp-validation-for="Nivel" class="text-danger"></span>
+</div>
+
+<div class="form-check form-switch mb-3">
+    <input asp-for="Estado" class="form-check-input" />
+    <label asp-for="Estado" class="form-check-label"></label>
+    <div class="form-text">Marcado = activo. Desmarcado = inactivo.</div>
+</div>

@@ -1,0 +1,14 @@
+@model Aventurero
+@{
+    ViewData["Title"] = "Editar aventurero";
+}
+<h2>Editar aventurero</h2>
+<div class="row"><div class="col-md-6">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="IdAventurero" />
+        <partial name="_Form" model="Model" />
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

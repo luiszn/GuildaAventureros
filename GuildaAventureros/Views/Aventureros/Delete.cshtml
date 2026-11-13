@@ -1,0 +1,29 @@
+@model Aventurero
+@{
+    ViewData["Title"] = "Eliminar aventurero";
+}
+<h2>Eliminar aventurero</h2>
+<div class="alert alert-warning">¿Seguro que desea eliminar este aventurero?</div>
+@if (Model.Usuario is not null)
+{
+    <div class="alert alert-danger">Este aventurero tiene una cuenta de usuario asociada (<strong>@Model.Usuario.NombreUsuario</strong>) y no podrá eliminarse.</div>
+}
+@if (Model.Asignaciones.Any())
+{
+    <div class="alert alert-danger">Este aventurero tiene <strong>@Model.Asignaciones.Count</strong> asignación(es) de misiones y no podrá eliminarse.</div>
+}
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+    <dt class="col-sm-3">Especialidad</dt>
+    <dd class="col-sm-9">@Model.Especialidad?.Nombre</dd>
+    <dt class="col-sm-3">Nivel</dt>
+    <dd class="col-sm-9">@Model.Nivel</dd>
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdAventurero" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>
